@@ -46,7 +46,8 @@ int XShmGetEventBase( Display* dpy ); // problems with g++?
 #include <sys/socket.h>
 
 #include <netinet/in.h>
-#include <errnos.h>
+// Instead of errnos.h it should be errno.h (I think linux headers were changed during these years.)
+#include <errno.h>
 #include <signal.h>
 
 #include "doomstat.h"
@@ -816,7 +817,8 @@ void I_InitGraphics(void)
 					X_visual,
 					attribmask,
 					&attribs );
-
+	
+	XInstallColormap(X_display,X_cmap);
     XDefineCursor(X_display, X_mainWindow,
 		  createnullcursor( X_display, X_mainWindow ) );
 
